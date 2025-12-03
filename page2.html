@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alcohol</title>
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+    /* 页面基础重置 */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000; /* 黑色背景 */
+    }
+
+    /* 将页面设置为视口高度，不让页面本身滚动（只有诗的容器可以滚动） */
+    body {
+      display: flex;
+      font-family: 'Special Elite', monospace;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden; /* 隐藏页面滚动条 */
+      color: whitesmoke;
+      cursor: url("Images/cursor.png"), auto;
+    }
+
+    /* 背景图层：使用你的 PNG 文件（放在同一目录，文件名 background.png） */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-color: #000;
+      background-image: url('Images/alcohol2.png'); /* <- 把这里换成你的文件名或路径 */
+      background-size: 300%;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: 0;
+      filter: none;
+    }
+
+
+    /* 容器：放诗与标题 */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(880px, 90vw);
+      height: min(640px, 80vh); /* 固定大小内可以滑动 */
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+
+    /* 标题样式 */
+    .title {
+      font-size: clamp(20px, 3.2vw, 34px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0;
+      padding: 0.2rem 0.4rem;
+      align-self: center;
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    /* 诗的滚动区域：可以滑动但隐藏滚动条 */
+    .poem {
+      font-family: 'Special Elite', monospace;
+      flex: 1 1 auto;
+      overflow: auto; /* 允许滑动 */
+      padding-right: 1rem; /* 给滑动时留点空间，避免文字被裁掉 */
+      line-height: 1.7;
+      font-size: clamp(15px, 1.8vw, 20px);
+      white-space: pre-wrap; /* 保留换行 */
+      pointer-events: auto;
+      -webkit-overflow-scrolling: touch; /* iOS 平滑滚动 */
+      text-align: center;
+
+      
+      /* 隐藏滚动条（WebKit） */
+    }
+    .poem::-webkit-scrollbar {
+      font-family: 'Special Elite', monospace;
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    /* Firefox 隐藏滚动条 */
+    .poem {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    /* 诗内部小样式：让首行或段落更有节奏 */
+    .poem p {
+      margin: 0 0 0.9rem 0;
+      text-indent: 0;
+    }
+
+      .back {
+     display: inline-block;
+     font-size: 1.5em;
+     color: white ;
+     text-decoration: none;
+     border: white;
+     padding: 8px 16px;
+     border-radius: 6px;
+     transition: background-color 0.3s ease, color 0.3s ease;
+     align-self: center;
+    cursor: url("Images/cursor.png"), auto;
+    }
+
+    .background-image {
+
+    animation-name:cloudFloat;
+    animation-duration:8s;
+    animation-iteration-count:infinite;
+    transition-timing-function:ease-in-out
+}
+
+    /* 响应式：手机上让容器更窄并增加内边距 */
+    @media (max-width: 520px) {
+      .card {
+        height: 80vh;
+        padding: 1rem;
+        border-radius: 12px;
+      }
+      .title {
+        font-size: 20px;
+      }
+
+    @keyframes cloudFloat {
+    0%   { transform: translate(0px, 0px); }
+    25%  { transform: translate(12px, -18px); }
+    50%  { transform: translate(0px, -28px); }
+    75%  { transform: translate(-12px, -18px); }
+    100% { transform: translate(0px, 0px); }
+    }
+
+    }
+  </style>
+</head>
+<body>
+  <!-- 背景图层 -->
+  <div class="bg" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <!-- 内容卡片 -->
+  <main class="card" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Alcohol</h1>
+
+    <!-- 诗歌区域：使用 pre-wrap 保留换行并允许滚动 -->
+    <div class="poem" tabindex="0" aria-label="诗歌内容（可滑动）">
+      Alcohol is like a flickering light swaying in the late night,
+
+      Silent, yet carving a quiet space for me on the glass.
+
+      When the world's sounds grow too sharp, too close,
+      It softens their edge into mist, turns pain into gentle tides.
+
+      I know it's not the answer,
+
+      yet in those suffocating moments,
+
+      it offers its own fleeting warmth—
+
+      like a weary soul seeking shelter in the rain, like the sigh of wind through old curtains.
+
+      It's not the fire that makes me braver,
+      just the light that makes me feel less alone for a while.
+    </div>
+
+    <div class="back">
+    <a href="index.html" class="back">Back</a>
+    </div>
+
+
+  </main>
+
+  <!-- 可选：小提示（注释掉或删除都行） -->
+  <!-- 
+    使用说明：
+    - 把你的 PNG 文件命名为 background.png 并与此文件放在同一目录，或修改 .bg 的 background-image 路径。
+    - 如果想要更强的文字可读性，把 .card 的 background 的 alpha 值调高（例如 0.55）。
+    - 诗歌区域支持触摸滑动与鼠标滚轮，但滚动条在视觉上被隐藏。
+  -->
+</body>
+</html>

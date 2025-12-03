@@ -1,0 +1,222 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single+Ink:wght@100..900&family=Joan&display=swap');
+
+/* home page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Joan", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #9DBCC3;
+  color: #D6CFB5;
+}
+
+html{
+  cursor: url("Images/cursor.png"), auto;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 100px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 6em;
+  margin-bottom: 60px;
+  color: #FAFAE3;
+  letter-spacing: 2px;
+  cursor: url("Images/cursor.png"), auto;
+  position: center;
+}
+
+.content {
+  font-size: 1.2em;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.back {
+  display: inline-block;
+  font-size: 1em;
+  color: #7b4a1e;
+  text-decoration: none;
+  border: 1px solid #223643;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back:hover {
+  background-color: #f3ede2;
+  color: #7b4a1e;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Home Page ends */
+
+
+
+
+/* home page picture buttons: */
+.floating-area {
+  position: center;
+  width: 80vw;
+  height: 60vh;
+  pointer-events: none;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+.floating-btn {
+  position: absolute;
+  pointer-events: auto;
+  z-index: 9999;   
+  display: block; 
+  cursor: url("Images/cursor.png"), auto;
+  
+}
+
+.floating-btn img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+
+
+
+/*按钮初始位置*/
+.btn1 { top: 20%; left: 0%; animation: float1 6s ease-in-out infinite alternate; 
+width: 560px; }
+.btn2 { top: 40%; left: 40%; animation: float2 7s ease-in-out infinite alternate;
+width: 800px; }
+.btn3 { top: 55%; left: 20%; animation: float3 5.5s ease-in-out infinite alternate;
+width: 560px }
+.btn4 { top: 25%; left: 70%; animation: float4 6.8s ease-in-out infinite alternate;
+width: 560px }
+.btn5 { top: 40%; left: 45%; animation: float5 7.2s ease-in-out infinite alternate;
+width: 560px; }
+.btn6 { top: 60%; left: 50%; animation: float6 5.7s ease-in-out infinite alternate;
+width: 560px; }
+
+/*animation*/
+@keyframes float1 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(30px, -30px); }
+}
+
+@keyframes float2 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-25px, 20px); }
+}
+
+@keyframes float3 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(50px, 25px); }
+}
+
+@keyframes float4 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-35px, -20px); }
+}
+
+@keyframes float5 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(20px, 35px); }
+}
+
+@keyframes float6 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-20px, 25px); }
+}
+/* Home page buttons end */
+
+
+
+
+/* Pillow's Page */
+.frame {
+  position: relative;
+  width: 1440px;
+  height: 800px;
+  font-family: "Joan", serif;
+  font-weight: 400;
+}
+
+.frame .text-wrapper {
+  position: absolute;
+  top: 124px;
+  left: 92px;
+  width: 442px;
+  opacity: 0.8;
+  font-family: "Joan", serif;
+  font-weight: 400;
+  color: #b8742a;
+  font-size: 200px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.frame .i-sometimes-wonder {
+  position: absolute;
+  top: 211px;
+  left: 279px;
+  width: 400px;
+  font-family: "Joan", serif;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.frame .yes-i-understand {
+  position: absolute;
+  top: 294px;
+  left: 597px;
+  width: 543px;
+  font-family: "Joan", serif;
+  font-weight: 400;
+  color: #5c3d1e;
+  font-size: 20px;
+  text-align: right;
+  letter-spacing: 0;
+  line-height: normal;
+}
+/* Pillow's Page ends */
+
+
+
+
+
+
+
+.blanket{
+  margin:500px;
+}
+
+/* homepage backgroud stars */
+.star-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.star {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+}
+
