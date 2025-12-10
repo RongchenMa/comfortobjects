@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blankets</title>
+  <style>
+    /* 你的 CSS，这里只保留关键部分 */
+
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      cursor: url("Images/cursor.png"), auto;
+    }
+
+    body {
+      display: flex;
+      font-family: 'Special Elite', monospace;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: #312934;
+    }
+
+    /* 背景图层 */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-color: #000;
+      background-image: url('Images/calpico2.png');
+      background-size: 80%;
+      background-position: 50% 70%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      will-change: background-position;
+    }
+
+    /* 卡片 */
+    .card {
+      position: relative;
+      z-index: 2;
+      width: min(880px, 90vw);
+      height: min(640px, 80vh);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+    }
+
+    /* 标题：和文字拉开距离，不被覆盖 */
+    .title {
+      font-size: clamp(20px, 3.2vw, 34px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin: 0 0 1rem 0;  /* 底部拉开 1rem 距离 */
+      padding: 0.2rem 0.4rem;
+      align-self: center;
+      text-align: center;
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    .poem {
+      font-family: 'Special Elite', monospace;
+      flex: 1 1 auto;
+      overflow: auto;
+      padding-right: 1rem;
+      line-height: 1.7;
+      font-size: clamp(15px, 1.8vw, 20px);
+      white-space: pre-wrap;
+      text-align: center;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .poem::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    .back {
+  display: inline-block;
+  font-size: 1.5em;
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.4);
+  align-self: center;
+  cursor: url("Images/cursor.png"), auto;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(6px);
+
+  transition: 
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+.back:hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(255,255,255,0.35);
+}
+  </style>
+</head>
+
+<body>
+  <!-- 背景图层 -->
+  <div class="bg" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <!-- 内容卡片 -->
+  <main class="card" role="main" aria-labelledby="page-title">
+    <h1 id="page-title" class="title">Pillows...</h1>
+
+    <div class="poem" tabindex="0" aria-label="诗歌内容（可滑动）">
+The refrigerator door slid open softly,
+The white bottle gleaming in the cool light,
+Like a comfort yet to be spoken.
+The cap unscrewed with a faint click,
+Yet echoed clearly within me—
+Today, too, can carry on.
+
+Bubbles rise slowly,
+like hesitant emotions lifted bit by bit.
+The first sip touches my tongue,
+sweet and sour unfolding,
+not fiery joy,
+but just the right, unobtrusive tenderness.
+
+It's not a celebratory drink,
+yet it accompanies me
+through countless moments unworthy of celebration.
+On afternoons of weariness, disappointment,
+gently knocked down by reality,
+I steady myself again
+with this sip of faintly tart sweetness.
+
+When the world grows too dry, too sharp,
+I use this cup of white liquid
+to preserve a bit of softness for myself.
+    </div>
+
+    <a href="index.html" class="back">Back</a>
+  </main>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bg = document.querySelector('.bg');
+    if (!bg) return;
+
+    // 基础位置（中间略偏下）
+    const baseX = 50;
+    const baseY = 60;
+
+    // 目标位置（鼠标决定） & 当前实际位置（缓动跟随）
+    let targetX = baseX;
+    let targetY = baseY;
+    let currentX = baseX;
+    let currentY = baseY;
+
+    const intensity = 10;   // 移动幅度：6~15 都可以试
+    const ease = 0.06;      // 缓动程度：数值越小越“迟钝、漂浮”
+
+    // 鼠标移动时，更新“目标位置”（顺着鼠标方向）
+    document.addEventListener('mousemove', (e) => {
+      const xRatio = e.clientX / window.innerWidth;   // 0 ~ 1
+      const yRatio = e.clientY / window.innerHeight;  // 0 ~ 1
+
+      // 顺着鼠标方向移动：鼠标右 → 背景也右；鼠标上 → 背景也上
+      targetX = baseX - (xRatio - 0.5) * intensity;
+      targetY = baseY - (yRatio - 0.5) * intensity;
+    });
+
+    // 动画循环：current 慢慢追上 target，产生“惯性感”
+    function animate() {
+      currentX += (targetX - currentX) * ease;
+      currentY += (targetY - currentY) * ease;
+
+      bg.style.backgroundPosition = `${currentX}% ${currentY}%`;
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  });
+</script>
+
+</body>
+</html>

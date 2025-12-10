@@ -1,0 +1,367 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Single+Ink:wght@100..900&family=Joan&display=swap');
+
+/* home page */
+html {
+  height: 100%;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;      /*禁止滚动*/
+  font-family: "Joan", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #9DBCC3;
+  color: #D6CFB5;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /*居中*/
+  cursor: url("Images/cursor.png"), pointer;
+  font-size: 6em;
+  color: #FAFAE3;
+  letter-spacing: 2px;
+  margin: 0;
+
+  text-align: center;     /* 文字段落居中 */
+  line-height: 1.2;   
+
+  transition: transform 0.3s ease, color 0.3s ease;  /*平滑缩放+变色*/
+}
+
+/* 鼠标靠近时轻微放大（记得保留 translate，不然会跑位） */
+.title:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* 点击后变粉色：清空记忆成功的状态 */
+.title.cleared {
+  color: #FFBABA;
+}
+/* Home Page general ends */
+
+
+
+
+/* home page picture buttons: */
+.floating-area {
+  position: fixed;
+  width: 80vw;
+  height: 60vh;
+  pointer-events: none;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+.floating-btn {
+  position: absolute;
+  pointer-events: auto;
+  z-index: 9999;   
+  display: block; 
+  cursor: url("Images/cursor.png"), auto;
+  
+}
+
+.floating-btn img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: url("Images/cursor.png"), auto;
+
+  filter: grayscale(90%) contrast(1.2);
+
+  transition: transform 0.4s ease-out, filter 0.4s ease-out;
+  transform-origin: center center;
+}
+
+.floating-btn:hover img {
+  transform: scale(1.2);
+  filter: grayscale(0%); 
+}
+
+.floating-btn.visited img {
+  filter: grayscale(0%) !important;
+}
+
+
+
+
+/*btn original location – desktop base*/
+.btn1 {
+  top: 35%;
+  left: 0%;
+  animation: float1 6s ease-in-out infinite alternate;
+  width: 22vw;
+}
+.btn2 {
+  top: 90%;
+  left: 70%;
+  animation: float2 7s ease-in-out infinite alternate;
+  width: 17vw;
+}
+.btn3 {
+  top: 90%;
+  left: 20%;
+  animation: float3 5.5s ease-in-out infinite alternate;
+  width: 22vw;
+}
+.btn4 {
+  top: 50%;
+  left: 95%;
+  animation: float4 6.8s ease-in-out infinite alternate;
+  width: 22vw;
+}
+.btn5 {
+  top: -5%;
+  left: 65%;
+  animation: float5 7.2s ease-in-out infinite alternate;
+  width: 20vw;
+}
+.btn6 {
+  top: -5%;
+  left: 36%;
+  animation: float6 5.7s ease-in-out infinite alternate;
+  width: 22vw;
+}
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 4.5em;   /* 标题略微缩小，但仍居中 */
+  }
+
+  .btn1,
+  .btn2,
+  .btn3,
+  .btn4,
+  .btn5,
+  .btn6 {
+    width: 26vw;   /* 漂浮物整体缩小一点 */
+  }
+}
+
+/* 手机版单独位置布局 */
+@media (max-width: 600px) {
+
+  /* 可选：让漂浮区域撑满屏幕 */
+  .floating-area {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* 在手机上重新排位置（不会影响电脑端） */
+  .btn1 {
+    top: 20%;
+    left: 14%;
+    width: 30vw;
+  }
+
+  .btn2 {
+    top: 10%;
+    left: 52%;
+    width: 30vw;
+  }
+
+  .btn3 {
+    top: 68%;
+    left: 8%;
+    width: 34vw;
+  }
+
+  .btn4 {
+    top: 75%;
+    left: 55%;
+    width: 30vw;
+  }
+
+  .btn5 {
+    top: 45%;
+    left: 0%;
+    width: 30vw;
+  }
+
+  .btn6 {
+    top: 48%;
+    left: 70%;
+    width: 32vw;
+  }
+}
+
+
+
+/*animation*/
+@keyframes float1 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(30px, -30px); }
+}
+
+@keyframes float2 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-25px, 20px); }
+}
+
+@keyframes float3 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(50px, 25px); }
+}
+
+@keyframes float4 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-35px, -20px); }
+}
+
+@keyframes float5 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(20px, 35px); }
+}
+
+@keyframes float6 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-20px, 25px); }
+}
+/* Home page buttons end */
+
+
+
+/* information words*/
+.info-left {
+  position: fixed;
+  left: 40px;          /* 离左边的距离 */
+  top: 40px;           /* 离上边的距离 */
+  transform: none;    /*一定要去掉之前的居中偏移 */
+  
+  font-size: 18px;    /*放大字号（原来是 14px）*/
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+
+  color: #223643;
+  opacity: 0.9;
+  z-index: 3;
+
+  opacity: 0; 
+  animation: fadeInSoft 2.5s ease-out forwards;   /* ⭐ 只淡入一次 */
+}
+
+.info-title-toggle {
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+
+/* 轻微的下划线提示（可选，可以删掉这一整块） */
+.info-title-toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: #223643;
+  transition: width 0.25s ease;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+.info-title-toggle:hover::after {
+  width: 100%;
+  cursor: url("Images/cursor.png"), auto;
+}
+
+/* 介绍文字：初始收起 */
+.info-desc {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 展开状态 */
+.info-left.open .info-desc {
+  max-height: 200px;          /* 根据你文字长度调大/调小 */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.info-right {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #223643;
+  opacity: 0.75;
+  text-align: right;
+  z-index: 3;
+
+  opacity: 0;
+  animation: fadeInSoft 2.5s ease-out forwards;
+  animation-delay: 1.8s;   /* ⭐ 比左上角晚出现 */
+}
+
+@keyframes fadeInSoft {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* information words end*/
+
+
+
+/* homepage backgroud stars */
+.star-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.star {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+}
+/* homepage backgroud stars */
+
+
+
+
+
+/* back btns */
+
+/* back btns end */
+
+
+.blanket{
+  margin:500px;
+}
