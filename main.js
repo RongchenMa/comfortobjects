@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // ================ 星星系统 ==================
+  //星星系统
   const starContainer = document.querySelector(".star-container");
   const starCount = 100;
   const stars = [];
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement("img");
-    star.src = "Images/star2.PNG";
+    star.src = "Images/star2.png";
     star.classList.add("star");
 
     const originalX = Math.random() * window.innerWidth;
@@ -45,12 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 如果你以后想要 twinkle 再加，不然我们先不调用，避免报错
-  // function animateTwinkle() { ... }
-  // animateTwinkle();
 
-
-  //  首页访问系统（彩色记忆）
+  // 首页访问系统（彩色记忆）
   const floatingBtns = document.querySelectorAll(".floating-btn");
 
   // 页面加载时：恢复已点击状态
@@ -61,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 点击时：记录已访问 + 立即加类
+  // 记录已访问 + 立即加类
   floatingBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const id = btn.dataset.id;
@@ -73,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // ========== 标题清空按钮 ==========
+  //标题清空按钮 
   const title = document.querySelector(".title");
 
   if (title) {
@@ -90,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ========== 左上角 Comfort Object 展开/收起介绍 ==========
+  // 左上角 Comfort Object 展开/收起介绍 
   const infoLeft = document.querySelector(".info-left");
   const infoTitleToggle = document.querySelector(".info-title-toggle");
 

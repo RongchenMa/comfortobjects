@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pillows?</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+    :root{
+      --bubble-bg: rgba(255,255,255,0.12);
+      --bubble-bg-hover: rgba(255,255,255,0.20);
+      --bubble-border: rgba(255,255,255,0.45);
+      --text: #4A3B4A;
+      --page: #9DBCC3; 
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      cursor: url("Images/cursor.png"), auto;
+      background: var(--page);
+      font-family: 'Special Elite', monospace;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* 大枕头背景：不加暗化、不加透明度、不加滤镜 */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: var(--page) url("Images/pillow.png") no-repeat center;
+      background-size: cover;
+      transform: scale(0.9);
+    }
+
+    /* 整个聊天页面容器 */
+    .chat-app {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      width: min(980px, 100vw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 顶部栏 */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 14px 14px;
+      background: rgba(255,255,255,0.06); 
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .back {
+      position: absolute;
+      left: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 1.05rem;
+      color: #4A3B4A;
+      text-decoration: none;
+
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--bubble-border);
+      background: var(--bubble-bg);
+      backdrop-filter: blur(6px);
+
+      cursor: url("Images/cursor.png"), auto;
+
+      transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+    .back:hover {
+      background: var(--bubble-bg-hover);
+      transform: scale(1.06);
+      box-shadow: 0 0 18px rgba(255,255,255,0.22);
+    }
+    .back:active { transform: scale(0.96); }
+
+    .title {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.02em;
+      user-select: none;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.25); 
+    }
+
+    /* 聊天区（可滚动） */
+    .messages {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 18px 14px 28px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .messages::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+    /* 每条消息一行 */
+    .row {
+      display: flex;
+      margin: 10px 0;
+    }
+    .row.left { justify-content: flex-start; }
+    .row.right { justify-content: flex-end; }
+
+    /* ✅ 气泡：改成更贴合文字（不再撑满 max-width 那种感觉） */
+    .bubble {
+      display: inline-block;                 /* 关键：贴合内容宽度 */
+      width: fit-content;
+      max-width: min(560px, 86%);            /* 仍然限制最大宽度 */
+      padding: 8px 10px;                    /* ✅ 更紧一点 */
+      border-radius: 16px;
+      border: 1px solid var(--bubble-border);
+      background: var(--bubble-bg);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+
+      line-height: 1.1;                     /* ✅ 收一点更像聊天 */
+      font-size: 1rem;
+      white-space: pre-wrap;
+
+      transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .bubble:hover{
+      background: var(--bubble-bg-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+    }
+
+
+    .left .bubble { border-top-left-radius: 6px; }
+    .right .bubble { border-top-right-radius: 6px; }
+
+    .meta {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      opacity: 0.8;
+      text-align: right;
+    }
+
+
+    .composer {
+      position: sticky;
+      bottom: 0;
+      z-index: 3;
+
+      padding: 12px 14px 16px;
+      background: rgba(255,255,255,0.06); /* ✅ 更亮 */
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .input-fake {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.10);
+      border-radius: 999px;
+      padding: 12px 14px;
+      opacity: 0.9;
+      user-select: none;
+    }
+
+    @media (max-width: 520px){
+      .title { font-size: 1.2rem; }
+      .bubble { font-size: 0.96rem; max-width: 88%; }
+      .back { font-size: 0.98rem; padding: 8px 12px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <div class="chat-app">
+    <header class="topbar">
+      <a href="index.html" class="back">Back</a>
+      <h1 class="title">Pillows?</h1>
+    </header>
+
+    <main class="messages" id="messages">
+      <div class="row left">
+        <div class="bubble">
+I sometimes wonder if everyone has their own "comfort object".
+For me, it's this pillow.
+          <div class="meta">seen</div>
+        </div>
+      </div>
+
+      <div class="row right">
+        <div class="bubble">
+That's right. It's just an object,
+but when you hug it, it's as if the whole world goes quiet.
+          <div class="meta">2:14 AM</div>
+        </div>
+      </div>
+
+      <div class="row left">
+        <div class="bubble">
+Sometimes I feel like it understands me.
+If I'm not sleeping well, feeling sad or confused,
+the moment I touch it, I start to feel better.
+        </div>
+      </div>
+
+      <div class="row right">
+        <div class="bubble">
+This sounds a bit magical,
+but I like this trick.
+
+Even when everything else changes,
+it stays the same.
+        </div>
+      </div>
+
+      <div class="row left">
+        <div class="bubble">
+Yes, I understand what you mean.
+Mine has got old and a bit yellow,
+but I don't want to replace it.
+        </div>
+      </div>
+
+      <div class="row right">
+        <div class="bubble">
+Perhaps that's just a small act of kindness we show ourselves.
+It remembers your warmth, your tears,
+and all those nights when you didn't say anything.
+        </div>
+      </div>
+
+      <div class="row left">
+        <div class="bubble">
+Maybe everyone needs something like this.
+It doesn't speak, it doesn't offer answers—
+it just quietly exists.
+        </div>
+      </div>
+    </main>
+
+    <footer class="composer">
+      <div class="input-fake">Message…</div>
+    </footer>
+  </div>
+
+  <script>
+    const messages = document.getElementById('messages');
+    messages.scrollTop = messages.scrollHeight;
+  </script>
+</body>
+</html>

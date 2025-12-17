@@ -31,8 +31,8 @@
       position: fixed;
       inset: 0;
       background-color: #000;
-      background-image: url('Images/eye.png');
-      background-size: 80%;
+      background-image: url('Images/blanket.png');
+      background-size: 120%;
       background-position: 50% 70%;
       background-repeat: no-repeat;
       z-index: 0;
@@ -59,7 +59,7 @@
       font-size: clamp(20px, 3.2vw, 34px);
       font-weight: 700;
       letter-spacing: 0.02em;
-      margin: 0 0 1rem 0;  /* 底部拉开 1rem 距离 */
+      margin: 0 0 1rem 0;  
       padding: 0.2rem 0.4rem;
       align-self: center;
       text-align: center;
@@ -85,7 +85,7 @@
       width: 0;
       height: 0;
     }
-    .back {
+.back {
   display: inline-block;
   font-size: 1.5em;
   color: white;
@@ -111,10 +111,6 @@
   transform: scale(1.08);
   box-shadow: 0 0 18px rgba(255,255,255,0.35);
 }
-.back:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 6px rgba(255,255,255,0.4);
-}
   </style>
 </head>
 
@@ -125,31 +121,26 @@
 
   <!-- 内容卡片 -->
   <main class="card" role="main" aria-labelledby="page-title">
-    <h1 id="page-title" class="title">Cosmetics</h1>
+    <h1 id="page-title" class="title">Blankets</h1>
 
     <div class="poem" tabindex="0" aria-label="诗歌内容（可滑动）">
+                A blanket is often more than just a daily necessity; it can become an emotional anchor. Its soft texture,
+          familiar scent, and the sense of security that comes from long-term companionship imbue an ordinary blanket
+          with profound psychological significance. For some, a blanket symbolizes warmth, protection, and belonging—a
+          presence to cling to in anxiety, lean on in exhaustion, and embrace in loneliness. It holds memories and
+          preserves emotions, offering a quiet yet reliable refuge amid chaos and pressure. In this way, a blanket not
+          only warms the body but also quietly soothes the soul.
 
-Cosmetics lie quietly in the corner of the desk,
-like a row of silent guardians.
-As the morning light falls,
-I smooth away last night's weariness with foundation,
-and give myself a reason to keep going with lipstick.
 
-They are not merely colors,
-but thin armor shielding vulnerability,
-and the boundary where I let the world draw near.
-When the brush sweeps across my cheeks,
-it's not just adornment,
-but a gentle reassurance—
-a reminder: I still hold the reins.
+        A blanket becomes a comfort object not merely because it&#39;s soft or warm, but because it silently witnesses
+        countless moments in the crevices of life. It accompanies long nights, soothes anxious hearts, and through
+        countless wordless embraces, builds a unique sense of security. Such a blanket serves as a tangible emotional
+        anchor. Simply holding it in your hands instantly restores a familiar rhythm and grounded sense of security. It
+        requires no words, yet conveys the profound power of being understood, supported, and embraced. For many, this
+        blanket transcends being a mere object—it embodies a quiet, enduring sense of safety.
 
-Amidst chaos, anxiety, and uncertainty,
-this hint of radiance
-becomes the rhythm of my breath.
-When the world grows too harsh,
-I use a layer of color
-to carve out a safe space for myself.
-=
+
+        Some blankets feel like containers for time. They absorb the scent of bygone sunlight and hold onto certain silent warmth. People pull them over themselves in unguarded moments, as if reconnecting with some long-settled force. They aren't necessarily soft or beautiful, but their wrinkles and wear create a unique intimacy. Blankets become objects of attachment not because they're perfect, but because they let us lean on them in our most relaxed, authentic, and vulnerable moments. They're portable pockets of reassurance—no matter how noisy the world outside, draping one over your shoulders makes everything feel a little quieter. 
     </div>
 
     <a href="index.html" class="back">Back</a>
@@ -161,30 +152,28 @@ to carve out a safe space for myself.
     const bg = document.querySelector('.bg');
     if (!bg) return;
 
-    // 基础位置（中间略偏下）
+
     const baseX = 50;
     const baseY = 60;
 
-    // 目标位置（鼠标决定） & 当前实际位置（缓动跟随）
     let targetX = baseX;
     let targetY = baseY;
     let currentX = baseX;
     let currentY = baseY;
 
-    const intensity = 10;   // 移动幅度：6~15 都可以试
-    const ease = 0.06;      // 缓动程度：数值越小越“迟钝、漂浮”
+    const intensity = 10; 
+    const ease = 0.06; 
 
-    // 鼠标移动时，更新“目标位置”（顺着鼠标方向）
+
     document.addEventListener('mousemove', (e) => {
-      const xRatio = e.clientX / window.innerWidth;   // 0 ~ 1
-      const yRatio = e.clientY / window.innerHeight;  // 0 ~ 1
+      const xRatio = e.clientX / window.innerWidth; 
+      const yRatio = e.clientY / window.innerHeight; 
 
-      // 顺着鼠标方向移动：鼠标右 → 背景也右；鼠标上 → 背景也上
+
       targetX = baseX - (xRatio - 0.5) * intensity;
       targetY = baseY - (yRatio - 0.5) * intensity;
     });
 
-    // 动画循环：current 慢慢追上 target，产生“惯性感”
     function animate() {
       currentX += (targetX - currentX) * ease;
       currentY += (targetY - currentY) * ease;
